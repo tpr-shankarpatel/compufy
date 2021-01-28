@@ -107,9 +107,9 @@ To contribute, please:
 | inference\_accelerator| device_name:The Elastic Inference accelerator device name.The deviceName must also be referenced in a container definition as a ResourceRequirement.device_type:The Elastic Inference accelerator type to use. | `list(any)` | `[]` |  |
 ## Outputs
 
-| Name | Description |
-|------|-------------|
-| cluster| The ARN of the Target Group (matches id) |
+| Name | Description | value |
+|------|-------------|-------|
+| cluster\_arn| The Amazon Resource Name (ARN) that identifies the cluster | aws\_ecs\_cluster.this.*.arn |
 | arn\_suffix | The ARN suffix for use with CloudWatch Metrics. |
 | id | The ARN of the Target Group (matches arn) |
 | name | The name of the Target Group. |
