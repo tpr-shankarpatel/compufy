@@ -63,9 +63,7 @@ To contribute, please:
     maximum_scaling_step_size       = number
     minimum_scaling_step_size       = number
     status                          = string
-    target_capacity                 = number
-  }))
-` | `"null"` |  |
+    target_capacity                 = number }))` | `"null"` |  |
 | capacity\_providers | List of short names of one or more capacity providers to associate with the cluster. Valid values also include FARGATE and FARGATE_SPOT. | `list(any)` | `"[]"` |  |
 | create\_cluster | Wether you want to have ecs cluster resource. | `bool` | `"true"` |  |
 | ecs\_use\_fargate | If ecs use fargate or not. | `bool` | `"false"` |  |
