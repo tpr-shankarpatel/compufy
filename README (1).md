@@ -65,27 +65,84 @@ To contribute, please:
     status                          = string
     target_capacity                 = number
   }))
+` | `"null"` |  |
+| capacity\_providers | List of short names of one or more capacity providers to associate with the cluster. Valid values also include FARGATE and FARGATE_SPOT. | `list(any)` | `"[]"` |  |
+| create\_cluster | Wether you want to have ecs cluster resource. | `bool` | `"true"` |  |
+| ecs\_use\_fargate | If ecs use fargate or not. | `bool` | `"false"` |  |
+| cluster\_name | The service name. | `string` | `""` | no |
+| aws\_ecs\_task\_definition | Wether you want to have ecs task definition | `bool` | `"true"` |  |
+| container\_definitions\_json | A list of valid container definitions provided as a single valid JSON document. Please note that you should only provide values that are part of the container definition document. | `string` | `""` |  |
+| ecs\_capacity\_provider | List of short names of one or more capacity providers to associate with the cluster. Valid values also include FARGATE and FARGATE_SPOT. | `list(string)` | `"null"` |  |
+| default\_capacity\_provider\_strategy | The capacity provider strategy to use by default for the cluster. Can be one or more. | `list(object({
+    capacity_provider = string
+    weight            = number
+    base              = number
+  }))
+` | `"null"` |  |
+| insights\_setting | Configuration block(s) with cluster settings. For example, this can be used to enable CloudWatch Container Insights for a cluster. | `list(object({
+    name    = string
+    ecs_val = string
+  }))
+` | `"null"` |  |
+| aws\_ecs\_service| Wether you want to have ecs capacity provider resource. | `bool` | `"true"` |  |
+| ecs\_service\_name | The service name. | `string` | `""` |  |
+| ecs\_service\_type\_of\_deployment\_controller | he number of instances of the task definition to place and keep running. Defaults to 0. Do not specify if using the DAEMON scheduling strategy. | `number` | `"0"`|  |
+| tasks\_minimum\_healthy\_percent | Lower limit on the number of running tasks. | `number` | `"0"` |  |
+| tasks\_maximum\_percent | Upper limit on the number of running tasks. | `number` | `"0"` |  |
+| enable\_ecs\_managed\_tags | Specifies whether to enable Amazon ECS managed tags for the tasks within the service. | `bool` | `"true"` |  |
+| force\_new\_deployment | Enable to force a new task deployment of the service. This can be used to update tasks to use a newer Docker image with same image/tag combination. | `bool` | `"true"` |  |
+| health\_check\_grace\_period\_seconds | Seconds to ignore failing load balancer health checks on newly instantiated tasks to prevent premature shutdown, up to 2147483647. Only valid for services configured to use load balancers. | `number` | `"null"` |  |
+| iam\_role\_arn | ARN of the IAM role that allows Amazon ECS to make calls to your load balancer on your behalf. | `string` | `""` |  |
+| platform\_version | The platform version on which to run your service. Only applicable for launch_type set to FARGATE. Defaults to LATEST. | `string` | `"LATEST"` |  |
+| propagate\_tags | Specifies whether to propagate the tags from the task definition or the service to the tasks. The valid values are SERVICE and TASK_DEFINITION. | `string` | `null` |  |
+| scheduling\_strategy | The scheduling strategy to use for the service. The valid values are REPLICA and DAEMON. Defaults to REPLICA. Note that Tasks using the Fargate launch type or the CODE_DEPLOY or EXTERNAL deployment controller types don't support the DAEMON scheduling strategy. | `string` | `"REPLICA"` |  |
+| wait\_for\_steady\_state | Terraform will wait for the service to reach a steady state (like aws ecs wait services-stable) before continuing. | `bool` | `false` |  |
+| ordered\_placement\_strategy | "" | `list(object({
+    ordered_placement_strategy_type  = string
+    ordered_placement_strategy_field = string
+  }))
+` | `[]` |  |
+| placement\_constraints | "" | `list(object({
+    placement_constraints_type = string
+    placement_constraints_expression = string
+  }))
+` | `[]` |  |
+| capacity\_provider\_strategy | The capacity provider strategy to use by default for the cluster. Can be one or more. | `list(object({
+    capacity_provider = string
+    weight            = number
+    base              = number
+  }))
+` | `[]` |  |
+| ecs\_tags | Key-value map of resource tags. | `map(any)` | `{}` |  |
+| network\_configuration| The network configuration for the service. This parameter is required for task definitions that use the awsvpc network mode to receive their own Elastic Network Interface, and it is not supported for other network modes. | `list(object({
+    subnets = list(string)
+    # security_groups = string
+    assign_public_ip = bool
+  }))
 ` | `null` |  |
-| health\_check\_enabled | Indicates whether health checks are enabled. Defaults to true. | `bool` | `true` | no |
-| health\_check\_healthy\_threshold | The number of consecutive health checks successes required before considering an unhealthy target healthy. Defaults to 3. | `number` | `3` | no |
-| health\_check\_interval | The approximate amount of time, in seconds, between health checks of an individual target. Minimum value 5 seconds, Maximum value 300 seconds. | `number` | `10` | no |
-| health\_check\_matcher | The HTTP codes to use when checking for a successful response from a target. You can specify multiple values (for example, `200,202`) or a range of values (for example, `200-299`). | `string` | `"200-299"` | no |
-| health\_check\_path | The destination for the health check request. Applies to Application Load Balancers only (HTTP/HTTPS) | `string` | `"/"` | no |
-| health\_check\_port | The port to use to connect with the target. Valid values are either ports 1-65535, or traffic-port. Defaults to `traffic-port.` | `string` | `"traffic-port"` | no |
-| health\_check\_protocol | The protocol to use to connect with the target. Defaults to the value of the Target Groups `protocol` | `string` | n/a | yes |
-| health\_check\_timeout | The amount of time, in seconds, during which no response means a failed health check. For Application Load Balancers, the range is 2 to 120 seconds, and the default is 5 seconds for the instance target type and 30 seconds for the lambda target type. For Network Load Balancers, you cannot set a custom value, and the default is 10 seconds for TCP and HTTPS health checks and 6 seconds for HTTP health checks. | `number` | `5` | no |
-| health\_check\_unhealthy\_threshold | The number of consecutive health check failures required before considering the target unhealthy . For Network Load Balancers, this value must be the same as the healthy\_threshold. Defaults to 3. | `number` | `3` | no |
-| host\_header | The host header for the condition block in the `aws_lb_listener_rule` | `string` | n/a | yes |
-| instance\_ids | A list of instance\_ids to attache to the target group | `list(string)` | n/a | yes |
-| name | The name of the target group. | `string` | n/a | yes |
-| port | The port on which targets receive traffic, unless overridden when registering a specific target. | `string` | n/a | yes |
-| protocol | The protocol to use for routing traffic to the targets. Should be one of `TCP, TLS, UDP, TCP_UDP, HTTP` or `HTTPS`. | `string` | n/a | yes |
-| slow\_start | The amount time for targets to warm up before the load balancer sends them a full share of requests. The range is 30-900 seconds or 0 to disable. | `number` | `0` | no |
-| stickiness\_cookie\_duration | The time period, in seconds, during which requests from a client should be routed to the same target. After this time period expires, the load balancer-generated cookie is considered stale. The range is 1 second to 1 week (604800 seconds). The default value is 1 day (86400 seconds). | `number` | `86400` | no |
-| stickiness\_enabled | Boolean to enable / disable stickiness. Default is true. | `bool` | `true` | no |
-| tags | A map of tag = values to be applied to any resources.  Each resource will have the `Name` tag added to the tags before being applied. | `map(string)` | n/a | yes |
-| target\_type | The type of target that you must specify when registering targets with this target group. The possible values are instance (targets are specified by instance ID) or ip (targets are specified by IP address) or lambda (targets are specified by lambda arn). The default is instance. Note that you can't specify targets for a target group using both instance IDs and IP addresses. If the target type is ip, specify IP addresses from the subnets of the virtual private cloud (VPC) for the target group, the RFC 1918 range (10.0.0.0/8, 172.16.0.0/12, and 192.168.0.0/16), and the RFC 6598 range (100.64.0.0/10). You can't specify publicly routable IP addresses. | `string` | `"instance"` | no |
-
+| load\_balancer | List of load balancer target group objects containing the lb_target_group_arn, container_port and container_health_check_port. The container_port is the port on which the container will receive traffic. The container_health_check_port is an additional port on which the container can receive a health check. The lb_target_group_arn is either Application Load Balancer (ALB) or Network Load Balancer (NLB) target group ARN tasks will register with. | `list(object({
+      container_port      = number
+      lb_target_group_arn = string
+      # elb_name            = string
+      }))
+` | `[]` |  |
+| lb\_type| Load balancer type possible values are Classic or alb or nlb. | `string` | `null` |  |
+| target\_container\_name| "Container name" | `string` | `"LATEST"` | no |
+| service\_registries | List of service registry objects as per <https://www.terraform.io/docs/providers/aws/r/ecs_service.html#service_registries-1>. List can only have a single object until <https://github.com/terraform-providers/terraform-provider-aws/issues/9573> is resolved. | `list(object({
+    registry_arn   = string
+    container_name = string
+    container_port = number
+    port           = number
+  }))
+` | `[]` |  |
+| family\_name| A unique name for your task definition. | `string` | `` |  |
+| task\_definition\_tag| A map of tags to add to ECS task_deffination_tag. | `map(string)` | `{}` |  |
+| family\_name| A unique name for your task definition. | `string` | `` |  |
+| family\_name| A unique name for your task definition. | `string` | `` |  |
+| family\_name| A unique name for your task definition. | `string` | `` |  |
+| family\_name| A unique name for your task definition. | `string` | `` |  |
+| family\_name| A unique name for your task definition. | `string` | `` |  |
+| family\_name| A unique name for your task definition. | `string` | `` |  |
 ## Outputs
 
 | Name | Description |
