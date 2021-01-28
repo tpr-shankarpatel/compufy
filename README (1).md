@@ -55,11 +55,17 @@ To contribute, please:
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:-----:|
-| aws\_ecs\_capacity\_provider | Wether you want to have ecs capacity provider resource. | `bool` | `"true"` | no |
-| alb\_state\_key | The key of the state. | `string` | `"SharedInternal-LB/terraform.tfstate"` | no |
-| alb\_state\_region | The region where the state is stored. | `string` | `"us-east-1"` | no |
-| alb\_workspace | The workspace where the common state is stored. | `string` | n/a | yes |
-| deregistration\_delay | The amount time for Elastic Load Balancing to wait before changing the state of a deregistering target from draining to unused. The range is 0-3600 seconds. | `number` | `300` | no |
+| aws\_ecs\_capacity\_provider | Wether you want to have ecs capacity provider resource. | `bool` | `"true"` |  |
+| ecs\_capacity\_provider\_name | ecs capacity provider name. | `string` | `"null"` |  |
+| ecs\_auto\_scalling\_grp\_arn | ARN of autoscalling group. | `string` | `"null"` |  |
+| managed\_termination\_protection | Enables or disables container-aware termination of instances in the auto scaling group when scale-in happens. Valid values are ENABLED and DISABLED. | `string` | `"DISABLED"` |  |
+| managed\_scaling | parameters of the auto scaling:(max_scalling_step:The maximum step adjustment size),(min_scalling_step:The maximum step adjustment size),(status:Whether auto scaling is managed by ECS,Valid values are ENABLED and DISABLED),(target_capacity:The target utilization for the capacity provider. A number between 1 and 100.). | `list(object({
+    maximum_scaling_step_size       = number
+    minimum_scaling_step_size       = number
+    status                          = string
+    target_capacity                 = number
+  }))
+` | `null` |  |
 | health\_check\_enabled | Indicates whether health checks are enabled. Defaults to true. | `bool` | `true` | no |
 | health\_check\_healthy\_threshold | The number of consecutive health checks successes required before considering an unhealthy target healthy. Defaults to 3. | `number` | `3` | no |
 | health\_check\_interval | The approximate amount of time, in seconds, between health checks of an individual target. Minimum value 5 seconds, Maximum value 300 seconds. | `number` | `10` | no |
