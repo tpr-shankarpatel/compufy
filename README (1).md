@@ -104,7 +104,7 @@ To contribute, please:
 | volume| A list of volume definitions in JSON format that containers in your task may use. | `list(any)` | `[]` |  |
 | task\_execution\_role\_arn| The role arn used for task execution. Required for network mode awsvpc. | `string` | `null` |  |
 | placement\_constraints\_task| A set of placement constraints rules that are taken into consideration during task placement. | `list(any)` | `[]` |  |
-| proxy\_configuration| (Optional) The proxy configuration details for the App Mesh proxy. This is a list of maps, where each map should contain \"container_name\", \"properties\" and \"type\". | `list(any)` | `[]` | no |
+| proxy\_configuration|  The proxy configuration details for the App Mesh proxy. This is a list of maps, where each map should contain \"container_name\", \"properties\" and \"type\". | `list(any)` | `[]` | no |
 | inference\_accelerator| device_name:The Elastic Inference accelerator device name.The deviceName must also be referenced in a container definition as a ResourceRequirement.device_type:The Elastic Inference accelerator type to use. | `list(any)` | `[]` |  |
 ## Outputs
 
