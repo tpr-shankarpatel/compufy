@@ -59,11 +59,7 @@ To contribute, please:
 | ecs\_capacity\_provider\_name | ecs capacity provider name. | `string` | `"null"` |  |
 | ecs\_auto\_scalling\_grp\_arn | ARN of autoscalling group. | `string` | `"null"` |  |
 | managed\_termination\_protection | Enables or disables container-aware termination of instances in the auto scaling group when scale-in happens. Valid values are ENABLED and DISABLED. | `string` | `"DISABLED"` |  |
-| managed\_scaling | parameters of the auto scaling:(max_scalling_step:The maximum step adjustment size),(min_scalling_step:The maximum step adjustment size),(status:Whether auto scaling is managed by ECS,Valid values are ENABLED and DISABLED),(target_capacity:The target utilization for the capacity provider. A number between 1 and 100.).|`list(object({
-    maximum_scaling_step_size       = number
-    minimum_scaling_step_size       = number
-    status                          = string
-    target_capacity                 = number }))` | `"null"` |  |
+| managed\_scaling | parameters of the auto scaling:(max_scalling_step:The maximum step adjustment size),(min_scalling_step:The maximum step adjustment size),(status:Whether auto scaling is managed by ECS,Valid values are ENABLED and DISABLED),(target_capacity:The target utilization for the capacity provider. A number between 1 and 100.).|`list(object({ maximum_scaling_step_size = number minimum_scaling_step_size = number  status = string target_capacity = number }))` | `"null"` |  |
 | capacity\_providers | List of short names of one or more capacity providers to associate with the cluster. Valid values also include FARGATE and FARGATE_SPOT. | `list(any)` | `"[]"` |  |
 | create\_cluster | Wether you want to have ecs cluster resource. | `bool` | `"true"` |  |
 | ecs\_use\_fargate | If ecs use fargate or not. | `bool` | `"false"` |  |
