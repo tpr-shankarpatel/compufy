@@ -107,24 +107,20 @@ To contribute, please:
 | inference\_accelerator| device_name:The Elastic Inference accelerator device name.The deviceName must also be referenced in a container definition as a ResourceRequirement.device_type:The Elastic Inference accelerator type to use. | `list(any)` | `[]` |  |
 ## Outputs
 
-| Name | Description | value |
-|------|-------------|-------|
-| cluster\_arn| The Amazon Resource Name (ARN) that identifies the cluster | aws\_ecs\_cluster.this.*.arn |
-| capacity\_provider\_name| Name of the provisioned capacity provider | aws\_ecs\_capacity\_provider.this.*.name |
-| capacity\_provider\_id| id of capacity provider | aws\_ecs\_capacity\_provider.this.*.id |
-| capacity\_provider\_arn| The Amazon Resource Name (ARN) that identifies the capacity provider | aws\_ecs\_capacity\_provider.this.*.arn |
-| cluster\_name| Name of cluster| aws\_ecs\_cluster.this.*.name |
-| cluster\_id| id of cluster | aws\_ecs\_cluster.this.*.id|
-| ecs\_service\_name| Name of The service | aws\_ecs\_service.this.*.name |
-| ecs\_service\_id| id of ecs service | aws\_ecs\_service.this.*.id |
-|  ecs\_service\_iam\_role| The ARN of IAM role used for ELB | aws\_ecs\_service.this.*.iam_role |
-| ecs\_service\_cluster| The Amazon Resource Name (ARN) of cluster which the service runs on | aws\_ecs\_service.this.*.cluster |
-| ecs\_service\_desired\_count| The number of instances of the task definition | aws\_ecs\_service.this.*.desired_count |
-| aws\_ecs\_task\_definition\_arn| Full ARN of the Task Definition (including both family and revision). | aws\_ecs\_task\_definition.this.*.arn  |
-| aws\_ecs\_task\_definition\_family| The family of the Task Definition.| aws\_ecs\_task\_definition.this.*.family |
-|aws\_ecs\_task\_definition\_revision| The revision of the task in a particular family. | aws\_ecs\_task\_definition.this.*.revision |
-| autoscaling\_group\_arn| aws autoscaling group arn | aws\_autoscaling\_group.this.arn |
-
-| capacity\_provider\_ | The ARN suffix for use with CloudWatch Metrics. |
-| id | The ARN of the Target Group (matches arn) |
-| name | The name of the Target Group. |
+| Name | Description |
+|------|-------------|
+| cluster\_arn| The Amazon Resource Name (ARN) that identifies the cluster | 
+| capacity\_provider\_name| Name of the provisioned capacity provider | 
+| capacity\_provider\_id| id of capacity provider | 
+| capacity\_provider\_arn| The Amazon Resource Name (ARN) that identifies the capacity provider | 
+| cluster\_name| Name of cluster|
+| cluster\_id| id of cluster | 
+| ecs\_service\_name| Name of The service |
+| ecs\_service\_id| id of ecs service | 
+|  ecs\_service\_iam\_role| The ARN of IAM role used for ELB | 
+| ecs\_service\_cluster| The Amazon Resource Name (ARN) of cluster which the service runs on | 
+| ecs\_service\_desired\_count| The number of instances of the task definition | 
+| aws\_ecs\_task\_definition\_arn| Full ARN of the Task Definition (including both family and revision). | 
+| aws\_ecs\_task\_definition\_family| The family of the Task Definition.| 
+|aws\_ecs\_task\_definition\_revision| The revision of the task in a particular family. | 
+| autoscaling\_group\_arn| aws autoscaling group arn | 
