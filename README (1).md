@@ -63,22 +63,22 @@ To contribute, please:
 | capacity\_providers | List of short names of one or more capacity providers to associate with the cluster. Valid values also include FARGATE and FARGATE_SPOT. | `list(any)` | `[]` |  |
 | create\_cluster | Wether you want to have ecs cluster resource. | `bool` | `true` |  |
 | ecs\_use\_fargate | If ecs use fargate or not. | `bool` | `false` |  |
-| cluster\_name | The service name. | `string` | `""` |  |
+| cluster\_name | The service name. | `string` | `` |  |
 | aws\_ecs\_task\_definition | Wether you want to have ecs task definition | `bool` | `true` |  |
-| container\_definitions\_json | A list of valid container definitions provided as a single valid JSON document. Please note that you should only provide values that are part of the container definition document. | `string` | `""` |  |
+| container\_definitions\_json | A list of valid container definitions provided as a single valid JSON document. Please note that you should only provide values that are part of the container definition document. | `string` | `` |  |
 | ecs\_capacity\_provider | List of short names of one or more capacity providers to associate with the cluster. Valid values also include FARGATE and FARGATE_SPOT. | `list(string)` | `null` |  |
 | default\_capacity\_provider\_strategy | The capacity provider strategy to use by default for the cluster. Can be one or more. | `list(any)` | `null` |  |
-| insights\_setting | Configuration block(s) with cluster settings. For example, this can be used to enable CloudWatch Container Insights for a cluster. | `list(any)` | `null` |  |
+| insights\_setting | Configuration block(s) with cluster settings. For example, this can be used to enable CloudWatch Container Insights for a cluster. | `list(any)` | `null` | 
 | aws\_ecs\_service| Wether you want to have ecs capacity provider resource. | `bool` | `true` |  |
-| ecs\_service\_name | The service name. | `string` | `""` |  |
+| ecs\_service\_name | The service name. | `string` | `` |  |
 | ecs\_service\_type\_of\_deployment\_controller | Type of deployment controller. Valid values: CODE_DEPLOY, ECS, EXTERNAL. Default: ECS | `string` | `"ECS"`|  |
 | tasks\_desired\_count | he number of instances of the task definition to place and keep running. Defaults to 0. Do not specify if using the DAEMON scheduling strategy.|`number` | `0`|  |
-| tasks\_minimum\_healthy\_percent | Lower limit on the number of running tasks. | `number` | `"0"` |  |
-| tasks\_maximum\_percent | Upper limit on the number of running tasks. | `number` | `"0"` |  |
+| tasks\_minimum\_healthy\_percent | Lower limit on the number of running tasks. | `number` | `0` |  |
+| tasks\_maximum\_percent | Upper limit on the number of running tasks. | `number` | `0` |  |
 | enable\_ecs\_managed\_tags | Specifies whether to enable Amazon ECS managed tags for the tasks within the service. | `bool` | `"true"` |  |
-| force\_new\_deployment | Enable to force a new task deployment of the service. This can be used to update tasks to use a newer Docker image with same image/tag combination. | `bool` | `"true"` |  |
-| health\_check\_grace\_period\_seconds | Seconds to ignore failing load balancer health checks on newly instantiated tasks to prevent premature shutdown, up to 2147483647. Only valid for services configured to use load balancers. | `number` | `"null"` |  |
-| iam\_role\_arn | ARN of the IAM role that allows Amazon ECS to make calls to your load balancer on your behalf. | `string` | `""` |  |
+| force\_new\_deployment | Enable to force a new task deployment of the service. This can be used to update tasks to use a newer Docker image with same image/tag combination. | `bool` | `true` |  |
+| health\_check\_grace\_period\_seconds | Seconds to ignore failing load balancer health checks on newly instantiated tasks to prevent premature shutdown, up to 2147483647. Only valid for services configured to use load balancers. | `number` | `null` |  |
+| iam\_role\_arn | ARN of the IAM role that allows Amazon ECS to make calls to your load balancer on your behalf. | `string` | `` |  |
 | platform\_version | The platform version on which to run your service. Only applicable for launch_type set to FARGATE. Defaults to LATEST. | `string` | `"LATEST"` |  |
 | propagate\_tags | Specifies whether to propagate the tags from the task definition or the service to the tasks. The valid values are SERVICE and TASK_DEFINITION. | `string` | `null` |  |
 | scheduling\_strategy | The scheduling strategy to use for the service. The valid values are REPLICA and DAEMON. Defaults to REPLICA. Note that Tasks using the Fargate launch type or the CODE_DEPLOY or EXTERNAL deployment controller types don't support the DAEMON scheduling strategy. | `string` | `"REPLICA"` |  |
@@ -94,7 +94,7 @@ To contribute, please:
 | service\_registries | List of service registry objects as per https://www.terraform.io/docs/providers/aws/r/ecs_service.html#service_registries-1. | `list(any)` | `[]` |  |
 | family\_name| A unique name for your task definition. | `string` | `` |  |
 | task\_definition\_tag| A map of tags to add to ECS task_deffination_tag. | `map(string)` | `{}` |  |
-| task\_role\_arn|The AWS IAM role that will be provided to the task to perform AWS actions. | `string` | `""` |  |
+| task\_role\_arn|The AWS IAM role that will be provided to the task to perform AWS actions. | `string` | `` |  |
 | task\_network\_mode| The network mode to be used in the task definiton. Supported modes are awsvpc and bridge. | `string' | `"bridge"` |  |
 | task\_cpu| CPU value for the task, required for FARGATE. | `string` | `null` |  |
 | task\_memory| Memory value for the task, required for FARGATE. | `string` | `null` |  |
