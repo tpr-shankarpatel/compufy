@@ -55,7 +55,7 @@ To contribute, please:
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:-----:|
-| alb\_state\_bucket | The bucket name for the state. | `string` | `"techservices-us-east-1-sharedservices-state-bucket"` | no |
+| aws\_ecs\_capacity\_provider | The bucket name for the state. | `string` | `"techservices-us-east-1-sharedservices-state-bucket"` | no |
 | alb\_state\_key | The key of the state. | `string` | `"SharedInternal-LB/terraform.tfstate"` | no |
 | alb\_state\_region | The region where the state is stored. | `string` | `"us-east-1"` | no |
 | alb\_workspace | The workspace where the common state is stored. | `string` | n/a | yes |
