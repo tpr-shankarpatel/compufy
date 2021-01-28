@@ -95,7 +95,7 @@ To contribute, please:
 | family\_name| A unique name for your task definition. | `string` |  |  |
 | task\_definition\_tag| A map of tags to add to ECS task_deffination_tag. | `map(string)` | `{}` |  |
 | task\_role\_arn|The AWS IAM role that will be provided to the task to perform AWS actions. | `string` |  |  |
-| task\_network\_mode| The network mode to be used in the task definiton. Supported modes are awsvpc and bridge. | `string' | `"bridge"` |  |
+| task\_network\_mode| The network mode to be used in the task definiton. Supported modes are awsvpc and bridge. | `string` | `"bridge"` |  |
 | task\_cpu| CPU value for the task, required for FARGATE. | `string` | `null` |  |
 | task\_memory| Memory value for the task, required for FARGATE. | `string` | `null` |  |
 | existing\_cluster\_arn| if we need to give existing cluster ARN. | `string` | `null` |  |
