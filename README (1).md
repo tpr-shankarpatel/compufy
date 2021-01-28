@@ -93,12 +93,18 @@ To contribute, please:
 | service\_registries | List of service registry objects as per <https://www.terraform.io/docs/providers/aws/r/ecs_service.html#service_registries-1>. List can only have a single object until <https://github.com/terraform-providers/terraform-provider-aws/issues/9573> is resolved. | `list(any)` | `[]` |  |
 | family\_name| A unique name for your task definition. | `string` | `` |  |
 | task\_definition\_tag| A map of tags to add to ECS task_deffination_tag. | `map(string)` | `{}` |  |
-| family\_name| A unique name for your task definition. | `string` | `` |  |
-| family\_name| A unique name for your task definition. | `string` | `` |  |
-| family\_name| A unique name for your task definition. | `string` | `` |  |
-| family\_name| A unique name for your task definition. | `string` | `` |  |
-| family\_name| A unique name for your task definition. | `string` | `` |  |
-| family\_name| A unique name for your task definition. | `string` | `` |  |
+| task\_role\_arn|The AWS IAM role that will be provided to the task to perform AWS actions. | `string` | `""` |  |
+| task\_network\_mode| The network mode to be used in the task definiton. Supported modes are awsvpc and bridge. | `string' | `"bridge"` |  |
+| task\_cpu| CPU value for the task, required for FARGATE. | `string` | `null` |  |
+| task\_memory| Memory value for the task, required for FARGATE. | `string` | `null` |  |
+| existing\_cluster\_arn| if we need to give existing cluster ARN. | `string` | `null` |  |
+| ipc\_mode| The IPC resource namespace to use for the containers in the task. | `` | `null` |  |
+| service\_launch\_type| The launch type, can be EC2 or FARGATE. | `string` | `EC2` |  |
+| volume| A list of volume definitions in JSON format that containers in your task may use. | `list(any)` | `[]` |  |
+| task\_execution\_role\_arn| The role arn used for task execution. Required for network mode awsvpc. | `string` | `null` |  |
+| placement\_constraints\_task| A set of placement constraints rules that are taken into consideration during task placement. | `list(any)` | `[]` |  |
+| proxy\_configuration| (Optional) The proxy configuration details for the App Mesh proxy. This is a list of maps, where each map should contain \"container_name\", \"properties\" and \"type\". | `list(any)` | `[]` | no |
+| inference\_accelerator| device_name:The Elastic Inference accelerator device name.The deviceName must also be referenced in a container definition as a ResourceRequirement.device_type:The Elastic Inference accelerator type to use. | `list(any)` | `[]` |  |
 ## Outputs
 
 | Name | Description |
