@@ -109,7 +109,7 @@ To contribute, please:
 
 | Name | Description |
 |------|-------------|
-| arn | The ARN of the Target Group (matches id) |
+| cluster| The ARN of the Target Group (matches id) |
 | arn\_suffix | The ARN suffix for use with CloudWatch Metrics. |
 | id | The ARN of the Target Group (matches arn) |
 | name | The name of the Target Group. |
