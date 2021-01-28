@@ -55,30 +55,54 @@ To contribute, please:
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:-----:|
-| alb\_state\_bucket | The bucket name for the state. | `string` | `"techservices-us-east-1-sharedservices-state-bucket"` | no |
-| alb\_state\_key | The key of the state. | `string` | `"SharedInternal-LB/terraform.tfstate"` | no |
-| alb\_state\_region | The region where the state is stored. | `string` | `"us-east-1"` | no |
-| alb\_workspace | The workspace where the common state is stored. | `string` | n/a | yes |
-| deregistration\_delay | The amount time for Elastic Load Balancing to wait before changing the state of a deregistering target from draining to unused. The range is 0-3600 seconds. | `number` | `300` | no |
-| health\_check\_enabled | Indicates whether health checks are enabled. Defaults to true. | `bool` | `true` | no |
-| health\_check\_healthy\_threshold | The number of consecutive health checks successes required before considering an unhealthy target healthy. Defaults to 3. | `number` | `3` | no |
-| health\_check\_interval | The approximate amount of time, in seconds, between health checks of an individual target. Minimum value 5 seconds, Maximum value 300 seconds. | `number` | `10` | no |
-| health\_check\_matcher | The HTTP codes to use when checking for a successful response from a target. You can specify multiple values (for example, `200,202`) or a range of values (for example, `200-299`). | `string` | `"200-299"` | no |
-| health\_check\_path | The destination for the health check request. Applies to Application Load Balancers only (HTTP/HTTPS) | `string` | `"/"` | no |
-| health\_check\_port | The port to use to connect with the target. Valid values are either ports 1-65535, or traffic-port. Defaults to `traffic-port.` | `string` | `"traffic-port"` | no |
-| health\_check\_protocol | The protocol to use to connect with the target. Defaults to the value of the Target Groups `protocol` | `string` | n/a | yes |
-| health\_check\_timeout | The amount of time, in seconds, during which no response means a failed health check. For Application Load Balancers, the range is 2 to 120 seconds, and the default is 5 seconds for the instance target type and 30 seconds for the lambda target type. For Network Load Balancers, you cannot set a custom value, and the default is 10 seconds for TCP and HTTPS health checks and 6 seconds for HTTP health checks. | `number` | `5` | no |
-| health\_check\_unhealthy\_threshold | The number of consecutive health check failures required before considering the target unhealthy . For Network Load Balancers, this value must be the same as the healthy\_threshold. Defaults to 3. | `number` | `3` | no |
-| host\_header | The host header for the condition block in the `aws_lb_listener_rule` | `string` | n/a | yes |
-| instance\_ids | A list of instance\_ids to attache to the target group | `list(string)` | n/a | yes |
-| name | The name of the target group. | `string` | n/a | yes |
-| port | The port on which targets receive traffic, unless overridden when registering a specific target. | `string` | n/a | yes |
-| protocol | The protocol to use for routing traffic to the targets. Should be one of `TCP, TLS, UDP, TCP_UDP, HTTP` or `HTTPS`. | `string` | n/a | yes |
-| slow\_start | The amount time for targets to warm up before the load balancer sends them a full share of requests. The range is 30-900 seconds or 0 to disable. | `number` | `0` | no |
-| stickiness\_cookie\_duration | The time period, in seconds, during which requests from a client should be routed to the same target. After this time period expires, the load balancer-generated cookie is considered stale. The range is 1 second to 1 week (604800 seconds). The default value is 1 day (86400 seconds). | `number` | `86400` | no |
-| stickiness\_enabled | Boolean to enable / disable stickiness. Default is true. | `bool` | `true` | no |
-| tags | A map of tag = values to be applied to any resources.  Each resource will have the `Name` tag added to the tags before being applied. | `map(string)` | n/a | yes |
-| target\_type | The type of target that you must specify when registering targets with this target group. The possible values are instance (targets are specified by instance ID) or ip (targets are specified by IP address) or lambda (targets are specified by lambda arn). The default is instance. Note that you can't specify targets for a target group using both instance IDs and IP addresses. If the target type is ip, specify IP addresses from the subnets of the virtual private cloud (VPC) for the target group, the RFC 1918 range (10.0.0.0/8, 172.16.0.0/12, and 192.168.0.0/16), and the RFC 6598 range (100.64.0.0/10). You can't specify publicly routable IP addresses. | `string` | `"instance"` | no |
+| create\_autoscaling\_group | whether to create autoscaling group | `bool` | `false` |  |
+| autoscaling\_group\_name | The name of the Auto Scaling Group. | `string` | `null` |  |
+| autoscaling\_name\_prefix | Creates a unique name beginning with the specified prefix | `string` | `null` |  |
+| max\_instance\_size | The maximum size of the Auto Scaling Group. | `number` | `4' |  |
+| min\_instance\_size | The minimum size of the Auto Scaling Group. | `number` | `1` |  |
+| availability\_zones | A list of one or more availability zones for the group. | `list(any)` | `null` |  |
+| capacity\_rebalance | Indicates whether capacity rebalance is enabled. Otherwise, capacity rebalance is disabled. | `bool` | `false` |  |
+| default\_cooldown | The amount of time, in seconds, after a scaling activity completes before another scaling activity can start. | `number` | `null` |  |
+| desired\_capacity | The number of Amazon EC2 instances that should be running in the group. | `number` | `null` |  |
+| use\_launch\_template | whether to use the launch template to create the ASG | `bool` | `true` |  |
+| launch\_template | launch template id and version | `any` | `{}` |  |
+| use\_launch\_configuration | whether to use launch configuration to create the ASG | `bool` | `false` |  |
+|launch\_configuration\_name | Name of launch configuration | `string` | `null` |  |
+| health\_check\_grace\_period | Time (in seconds) after instance comes into service before checking health. | `number` | `300` |  |
+| health\_check\_type | EC2 or ELB. Controls how health checking is done.| `string` | `null` |  |
+| force\_delete | Allows deleting the Auto Scaling Group without waiting for all instances in the pool to terminate. | `string` | `true` |  |
+| load\_balancers | A list of elastic load balancer names to add to the autoscaling group names. Only valid for classic load balancers. | `list(string)` | `[]` |  |
+| vpc\_zone\_identifier | A list of subnet IDs to launch resources in. | `list(string)` | `[]`|  |
+| target\_group\_arns | A set of aws_alb_target_group ARNs, for use with Application or Network Load Balancing. | `list(string)` | `[]` |  |
+| termination\_policies | A list of policies to decide how the instances in the Auto Scaling Group should be terminated. | `list(string)` | `["Default"]` |  |
+| suspended\_processes| A list of processes to suspend for the Auto Scaling Group.| `list(string)` | `null` |  |
+| autoscaling\_group\_tags | autoscalning group tags , set of maps required | `any` | `{}` |  |
+| placement\_group | The name of the placement group into which you'll launch your instances. | `string` | `null` |  |
+| metrics\_granularity | The granularity to associate with the metrics to collect. The only valid value is 1Minute. | `string` | `"1Minute"` |  |
+| enabled\_metrics | A list of metrics to collect. | `list(any)` | `null` |  |
+| wait\_for\_capacity\_timeout | A maximum duration that Terraform should wait for ASG instances to be healthy before timing out. | `string` | `"10m"` |  |
+| min\_elb\_capacity | Setting this causes Terraform to wait for this number of instances from this Auto Scaling Group to show up healthy in the ELB only on creation. Updates will not wait on ELB instance number changes. | `number` | `null` |  |
+| protect\_from\_scale\_in | Allows setting instance protection. The Auto Scaling Group will not select instances with this setting for termination during scale in events.|``| `null` |  |
+| metrics\_granularity | The granularity to associate with the metrics to collect. The only valid value is 1Minute. | `string` | `"1Minute"` |  |
+| metrics\_granularity | The granularity to associate with the metrics to collect. The only valid value is 1Minute. | `string` | `"1Minute"` |  |
+| metrics\_granularity | The granularity to associate with the metrics to collect. The only valid value is 1Minute. | `string` | `"1Minute"` |  |
+| metrics\_granularity | The granularity to associate with the metrics to collect. The only valid value is 1Minute. | `string` | `"1Minute"` |  |
+| metrics\_granularity | The granularity to associate with the metrics to collect. The only valid value is 1Minute. | `string` | `"1Minute"` |  |
+| metrics\_granularity | The granularity to associate with the metrics to collect. The only valid value is 1Minute. | `string` | `"1Minute"` |  |
+| metrics\_granularity | The granularity to associate with the metrics to collect. The only valid value is 1Minute. | `string` | `"1Minute"` |  |
+| metrics\_granularity | The granularity to associate with the metrics to collect. The only valid value is 1Minute. | `string` | `"1Minute"` |  |
+| metrics\_granularity | The granularity to associate with the metrics to collect. The only valid value is 1Minute. | `string` | `"1Minute"` |  |
+| metrics\_granularity | The granularity to associate with the metrics to collect. The only valid value is 1Minute. | `string` | `"1Minute"` |  |
+| metrics\_granularity | The granularity to associate with the metrics to collect. The only valid value is 1Minute. | `string` | `"1Minute"` |  |
+| metrics\_granularity | The granularity to associate with the metrics to collect. The only valid value is 1Minute. | `string` | `"1Minute"` |  |
+| metrics\_granularity | The granularity to associate with the metrics to collect. The only valid value is 1Minute. | `string` | `"1Minute"` |  |
+| metrics\_granularity | The granularity to associate with the metrics to collect. The only valid value is 1Minute. | `string` | `"1Minute"` |  |
+| metrics\_granularity | The granularity to associate with the metrics to collect. The only valid value is 1Minute. | `string` | `"1Minute"` |  |
+| metrics\_granularity | The granularity to associate with the metrics to collect. The only valid value is 1Minute. | `string` | `"1Minute"` |  |
+| metrics\_granularity | The granularity to associate with the metrics to collect. The only valid value is 1Minute. | `string` | `"1Minute"` |  |
+| metrics\_granularity | The granularity to associate with the metrics to collect. The only valid value is 1Minute. | `string` | `"1Minute"` |  |
+| metrics\_granularity | The granularity to associate with the metrics to collect. The only valid value is 1Minute. | `string` | `"1Minute"` |  |
+| metrics\_granularity | The granularity to associate with the metrics to collect. The only valid value is 1Minute. | `string` | `"1Minute"` |  |
 
 ## Outputs
 
