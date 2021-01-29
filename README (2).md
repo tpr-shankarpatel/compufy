@@ -161,9 +161,14 @@ To contribute, please:
 | placement\_partition\_number| The number of the partition the instance should launch in. Valid only if the placement group strategy is set to partition.| `string` | `null`|  |
 | ram\_disk\_id | The ID of the RAM disk. | `string` | `null` |  |
 | security\_group\_names | A list of security group names to associate with. If you are creating Instances in a VPC, use vpc_security_group_ids instead.| `list(string)` | `null` |  |
-| aws\_autoscaling\_notification\_topic\_arn | The Topic ARN for notifications to be sent through | `string` | `null` |  |
-
-
+| vpc\_security\_group\_ids | A list of security group IDs to associate with. | `list(string)` | `[]` |  |
+| tag\_specifications\_resource\_type | The type of resource to tag. Valid values are instance, volume, elastic-gpu and spot-instances-request.| `string` | `"instance"` |  |
+| tag\_specifications\_tags | A map of tags to assign to the resource. | `map(any)` | `{}` |  |
+| userdata\_container\_name | The Base64-encoded user data to provide when launching the instance. // Provide container name to assign autoscalling group | `string` |  |  |
+| additional\_commands | Add more commands in list format if you want to run when instance boots up | `list(string)` | `[] |  |
+| hibernation\_configured | If set to true, the launched EC2 instance will hibernation enabled.| `bool` | `false` |  |
+| enclave\_enabled| If set to true, Nitro Enclaves will be enabled on the instance.| `bool` | `false` |  |
+| hibernation\_configured\_opts |Use this option if required | `bool` | `false` |  |
 ## Outputs
 
 | Name | Description |
