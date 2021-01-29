@@ -173,7 +173,22 @@ To contribute, please:
 
 | Name | Description |
 |------|-------------|
-| arn | The ARN of the Target Group (matches id) |
-| arn\_suffix | The ARN suffix for use with CloudWatch Metrics. |
-| id | The ARN of the Target Group (matches arn) |
-| name | The name of the Target Group. |
+| autoscaling\_arn | The ARN for this Auto Scaling Group |
+| autoscalling\_id| The Auto Scaling Group id. |
+| availability\_zones | The availability zones of the Auto Scaling Group. |
+| min\_size| The minimum size of the Auto Scaling Group |
+| max\_size | The maximum size of the Auto Scaling Group |
+| name | The name of the Auto Scaling Group |
+| health\_check\_grace\_period | Time after instance comes into service before checking health. |
+| desired\_capacity | The number of Amazon EC2 instances that should be running in the group. |
+| vpc\_zone\_identifier | The VPC zone identifier |
+| health\_check\_type | "EC2" or "ELB". Controls how health checking is done. |
+| notifications |  |
+| group\_names |  |
+| topic\_arn |  |
+| autoscaling\_policy\_arn | The ARN assigned by AWS to the scaling policy. |
+| autoscaling\_policy\_name | The scaling policy's name. |
+| autoscaling\_policy\_autoscaling\_group\_name | The scaling policy's assigned autoscaling group. |
+| autoscaling\_policy\_adjustment\_type | The scaling policy's adjustment type.|
+| autoscaling\_policy\_type | The scaling policy's type. |
+| autoscaling\_schedule\_arn | The ARN assigned by AWS to the autoscaling schedule. |
