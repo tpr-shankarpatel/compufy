@@ -113,11 +113,11 @@ To contribute, please:
 | autoscaling\_policy\_metric\_aggregation\_type | he aggregation type for the policy's metrics. Valid values are \"Minimum\", \"Maximum\", and \"Average\". Without a value, AWS will treat the aggregation type as \"Average\" | `string` | `null` |  |
 | step\_adjustment | A set of adjustments that manage group scaling. These have the following structure: | `list(object({scaling_adjustment = number metric_interval_lower_bound = number metric_interval_upper_bound = number}))` | `null` |  |
 | target\_tracking\_configuration | A target tracking policy. Note: Define predefined_metric_specification or customized_metric_specification| `list(object(predefined_metric_specification = list(object({predefined_metric_type = string resource_label = string}))customized_metric_specification = list(object({metric_dimension = list(object({name  = string value = string}))metric_name = string namespace = string statistic = string unit = string}))target_value = number disable_scale_in = bool}))` | `null` |  |
-| aws\_autoscaling\_notification\_topic\_arn | The Topic ARN for notifications to be sent through | `string` | `null` |  |
-| aws\_autoscaling\_notification\_topic\_arn | The Topic ARN for notifications to be sent through | `string` | `null` |  |
-| aws\_autoscaling\_notification\_topic\_arn | The Topic ARN for notifications to be sent through | `string` | `null` |  |
-| aws\_autoscaling\_notification\_topic\_arn | The Topic ARN for notifications to be sent through | `string` | `null` |  |
-| aws\_autoscaling\_notification\_topic\_arn | The Topic ARN for notifications to be sent through | `string` | `null` |  |
+| create\_autoscaling\_schedule | whether to create autoscaling schedule | `bool` | `false` |  |
+| scheduled\_action\_name| The name of this scaling action. | `string` | `null` |  |
+| autoscaling\_schedule\_min\_size | he minimum size for the Auto Scaling group. Default 0. Set to -1 if you don't want to change the minimum size at the scheduled time.| `number` | `null` |  |
+| autoscaling\_schedule\_max\_size | The minimum size for the Auto Scaling group. Default 0. Set to -1 if you don't want to change the minimum size at the scheduled time. | `number` | `null` |  |
+| autoscaling\_schedule\_desired\_capacity | he number of EC2 instances that should be running in the group. Default 0. Set to -1 if you don't want to change the desired capacity at the scheduled time. | `number` | `null` |  |
 | aws\_autoscaling\_notification\_topic\_arn | The Topic ARN for notifications to be sent through | `string` | `null` |  |
 
 ## Outputs
