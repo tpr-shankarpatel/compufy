@@ -118,7 +118,51 @@ To contribute, please:
 | autoscaling\_schedule\_min\_size | he minimum size for the Auto Scaling group. Default 0. Set to -1 if you don't want to change the minimum size at the scheduled time.| `number` | `null` |  |
 | autoscaling\_schedule\_max\_size | The minimum size for the Auto Scaling group. Default 0. Set to -1 if you don't want to change the minimum size at the scheduled time. | `number` | `null` |  |
 | autoscaling\_schedule\_desired\_capacity | he number of EC2 instances that should be running in the group. Default 0. Set to -1 if you don't want to change the desired capacity at the scheduled time. | `number` | `null` |  |
+| autoscaling\_schedule\_start\_time | he time for this action to start, in \"YYYY-MM-DDThh:mm:ssZ\" format in UTC/GMT only (for example, 2014-06-01T00:00:00Z ). If you try to schedule your action in the past, Auto Scaling returns an error message. | `string` | `null` |  |
+| autoscaling\_schedule\_end\_time | The time for this action to end, in \"YYYY-MM-DDThh:mm:ssZ\" format in UTC/GMT only (for example, 2014-06-01T00:00:00Z ). If you try to schedule your action in the past, Auto Scaling returns an error message. | `string` | `null` |  |
+| autoscaling\_schedule\_recurrence | The time when recurring future actions will start. Start time is specified by the user following the Unix cron syntax format.|  | `null`| |
+| create\_launch\_template | whether to create the launch template | `bool` | `true` |  |
+| launch\_template\_name | The name of the launch template. If you leave this blank, Terraform will auto-generate a unique name | `string` | `null` |  |
+| block\_device\_mappings | Specify volumes to attach to the instance besides the volumes specified by the AMI | `any` | `null` |  |
+| launch\_template\_name\_prefix | Creates a unique name beginning with the specified prefix. Conflicts with name. | `string` | `null` |  |
+| launch\_template\_description | Description of the launch template. | `string` |  |  |
+| launch\_template\_default\_version| Default Version of the launch template.| `string` | `null` |  |
+| update\_default\_version | Whether to update Default Version each update. Conflicts with default_version. | `bool` | `true` |  |
+| capacity\_reservation\_preference | Targeting for EC2 capacity reservations. See Capacity Reservation Specification below for more details.| `string` | `null` |  |
+| cpu\_core\_count | The number of CPU cores for the instance. | `number` | `null` |  |
+| threads\_per\_core | he number of threads per CPU core. To disable Intel Hyper-Threading Technology for the instance, specify a value of 1. Otherwise, specify the default value of 2. | `number` | `null` |  |
+| cpu\_credits | The credit option for CPU usage. Can be \"standard\" or \"unlimited\". T3 instances are launched as unlimited by default. T2 instances are launched as standard by default.| `string` | `null` |  |
+| disable\_api\_termination | If true, enables EC2 Instance Termination Protection | `bool` | `true` |  |
+| ebs\_optimized\_opts | If true, the launched EC2 instance will enable ebs_optimized variable. | `string` | `true` |  |
+| ebs\_optimized | If true, the launched EC2 instance will be EBS-optimized. | `string` | `false` |  |
+| elastic\_gpu\_specifications\_type | The Elastic GPU Type | `string` | `null` |  |
+| elastic\_inference\_accelerator\_type | attach an Elastic Inference Accelerator to the instance. Additional information about Elastic Inference in EC2 can be found in the EC2 User Guide.| `string` | `null` |  |
+| iam\_instance\_profile\_name| The name of the instance profile. | `string` |  |  |
+| iam\_instance\_arn | he Amazon Resource Name (ARN) of the instance profile.| `string` |  |  |
+| ami\_image\_id| The AMI from which to launch the instance. | `string` |  |  |
+| instance\_initiated\_shutdown\_behavior | The market (purchasing) option for the instance. See Market Options below for details. | `string` | `null` |  |
+| use\_market\_options | whether to use market options for our instance | `bool` | `false` |  |
+| instance\_market\_type | The market (purchasing) option for the instance. See Market Options below for details.| `string` | `"SPOT"` |  |
+| instance\_type| the type of the instance. | `string` |  |  |
+| key\_name | - The key name to use for the instance. | `string` |  |  |
+| license\_configuration\_arn | A list of license specifications to associate with. See License Specification below for more details. | `list(string)` | `null` |  |
+| use\_instance\_metadata\_service | whether to customize instance metadata | `bool` | `false` |  |
+| http\_endpoint | Whether the metadata service is available. Can be enabled or disabled.  | `string` | `"enabled"` |  |
+| http\_tokens | Whether or not the metadata service requires session tokens | `string` | `"optional"` |  |
+| http\_put\_response\_hop\_limit | he desired HTTP PUT response hop limit for instance metadata requests. The larger the number, the further instance metadata requests can travel | `number` | `1` |  |
+| monitoring\_enabled | If true, the launched EC2 instance will have detailed monitoring enabled. | `bool` | `false` |  |
+| set\_placement\_group\_details | whether to set pleacement group details in the launch configuration | `bool` | `false` |  |
+| placement\_affinity | The affinity setting for an instance on a Dedicated Host. | `any` | `null` |  |
+| placement\_availability\_zone | The Availability Zone for the instance.| `any` | `null` |  |
+| placement\_group\_name | The name of the placement group for the instance. | `string` | `null` |  |
+| placement\_host\_id | The ID of the Dedicated Host for the instance. | `string` | `null` |  |
+| placement\_spread\_domain | Reserved for future use. | `string` | `null` |  |
+| placement\_tenancy | The tenancy of the instance (if the instance is running in a VPC). Can be default, dedicated, or host. | `string` | `"default"` |  |
+| placement\_partition\_number| The number of the partition the instance should launch in. Valid only if the placement group strategy is set to partition.| `string` | `null`|  |
+| ram\_disk\_id | The ID of the RAM disk. | `string` | `null` |  |
+| security\_group\_names | A list of security group names to associate with. If you are creating Instances in a VPC, use vpc_security_group_ids instead.| `list(string)` | `null` |  |
 | aws\_autoscaling\_notification\_topic\_arn | The Topic ARN for notifications to be sent through | `string` | `null` |  |
+
 
 ## Outputs
 
