@@ -96,13 +96,29 @@ To contribute, please:
 | autoscaling\_lifecycle\_hook\_default\_result | Defines the action the Auto Scaling group should take when the lifecycle hook timeout elapses or if an unexpected failure occurs. The value for this parameter can be either CONTINUE or ABANDON. The default value for this parameter is ABANDON. |  | `"ABANDON"` |  |
 | autoscaling\_lifecycle\_hook\_heartbeat\_timeout | Defines the amount of time, in seconds, that can elapse before the lifecycle hook times out. When the lifecycle hook times out, Auto Scaling performs the action defined in the DefaultResult parameter| `number` | `10` |  |
 | autoscaling\_lifecycle\_hook\_lifecycle\_transition | The instance state to which you want to attach the lifecycle hook. For a list of lifecycle hook types.| `string` | `null` |  |
-| metrics\_granularity | The granularity to associate with the metrics to collect. The only valid value is 1Minute. | `string` | `"1Minute"` |  |
-| metrics\_granularity | The granularity to associate with the metrics to collect. The only valid value is 1Minute. | `string` | `"1Minute"` |  |
-| metrics\_granularity | The granularity to associate with the metrics to collect. The only valid value is 1Minute. | `string` | `"1Minute"` |  |
-| metrics\_granularity | The granularity to associate with the metrics to collect. The only valid value is 1Minute. | `string` | `"1Minute"` |  |
-| metrics\_granularity | The granularity to associate with the metrics to collect. The only valid value is 1Minute. | `string` | `"1Minute"` |  |
-| metrics\_granularity | The granularity to associate with the metrics to collect. The only valid value is 1Minute. | `string` | `"1Minute"` |  |
-| metrics\_granularity | The granularity to associate with the metrics to collect. The only valid value is 1Minute. | `string` | `"1Minute"` |  |
+| autoscaling\_lifecycle\_hook\_notification\_metadata | Contains additional information that you want to include any time Auto Scaling sends a message to the notification target. | `string` | `null` |  |
+| autoscaling\_lifecycle\_hook\_notification\_target\_arn |The ARN of the notification target that Auto Scaling will use to notify you when an instance is in the transition state for the lifecycle hook. This ARN target can be either an SQS queue or an SNS topic.| `string` | `null` |  |
+| autoscaling\_lifecycle\_hook\_role\_arn | The ARN of the IAM role that allows the Auto Scaling group to publish to the specified notification target. | `string` | `null` |  |
+| create\_autoscaling\_notification | whether to create lifecycle hook for the autoscaling group | `bool` | `false` |  |
+| aws\_autoscaling\_notifications | A list of Notification Types that trigger notifications. Acceptable values are documented  | `list(string)` | `null` |  |
+| aws\_autoscaling\_notification\_topic\_arn | The Topic ARN for notifications to be sent through | `string` | `null` |  |
+| create\_autoscaling\_policy | whether to create autoscaling policy for the ASG | `bool` | `false` |  |
+| autoscaling\_policy\_name | The name of the policy. | `string` | `null` |  |
+| autoscaling\_policy\_adjustment\_type | Specifies whether the adjustment is an absolute number or a percentage of the current capacity. Valid values are ChangeInCapacity, ExactCapacity, and PercentChangeInCapacity.| `string` | `null` |  |
+| policy\_type\_name | scaling type valid values are : [SimpleScaling, StepScaling, TargetTrackingScaling ] | `string` | `null` |  |
+| estimated\_instance\_warmup | The estimated time, in seconds, until a newly launched instance will contribute CloudWatch metrics. Without a value, AWS will default to the group's specified cooldown period. | `number` | `null` |  |
+|autoscaling\_policy\_cooldown | The amount of time, in seconds, after a scaling activity completes and before the next scaling activity can start. | `number` | `null` |  |
+| autoscaling\_policy\_scaling\_adjustment | The number of instances by which to scale. adjustment_type determines the interpretation of this number | `string` | `null` |  |
+| autoscaling\_policy\_min\_adjustment\_magnitude | Minimum value to scale by when adjustment_type is set to PercentChangeInCapacity. | `string` | `null` |  |
+| autoscaling\_policy\_metric\_aggregation\_type | he aggregation type for the policy's metrics. Valid values are \"Minimum\", \"Maximum\", and \"Average\". Without a value, AWS will treat the aggregation type as \"Average\" | `string` | `null` |  |
+| step\_adjustment | A set of adjustments that manage group scaling. These have the following structure: | `list(object({scaling_adjustment = number metric_interval_lower_bound = number metric_interval_upper_bound = number}))` | `null` |  |
+| target\_tracking\_configuration | A target tracking policy. Note: Define predefined_metric_specification or customized_metric_specification| `list(object(predefined_metric_specification = list(object({predefined_metric_type = string resource_label = string}))customized_metric_specification = list(object({metric_dimension = list(object({name  = string value = string}))metric_name = string namespace = string statistic = string unit = string}))target_value = number disable_scale_in = bool}))` | `null` |  |
+| aws\_autoscaling\_notification\_topic\_arn | The Topic ARN for notifications to be sent through | `string` | `null` |  |
+| aws\_autoscaling\_notification\_topic\_arn | The Topic ARN for notifications to be sent through | `string` | `null` |  |
+| aws\_autoscaling\_notification\_topic\_arn | The Topic ARN for notifications to be sent through | `string` | `null` |  |
+| aws\_autoscaling\_notification\_topic\_arn | The Topic ARN for notifications to be sent through | `string` | `null` |  |
+| aws\_autoscaling\_notification\_topic\_arn | The Topic ARN for notifications to be sent through | `string` | `null` |  |
+| aws\_autoscaling\_notification\_topic\_arn | The Topic ARN for notifications to be sent through | `string` | `null` |  |
 
 ## Outputs
 
