@@ -88,18 +88,16 @@ module "asg" {
 | enabled\_metrics | A list of metrics to collect. | `list(any)` | `null` | `no`  |
 | wait\_for\_capacity\_timeout | A maximum duration that Terraform should wait for ASG instances to be healthy before timing out. | `string` | `"10m"` | `no` |
 | min\_elb\_capacity | Setting this causes Terraform to wait for this number of instances from this Auto Scaling Group to show up healthy in the ELB only on creation. Updates will not wait on ELB instance number changes. | `number` | `null` | `no` |
-| protect\_from\_scale\_in | Allows setting instance protection. The Auto Scaling Group will not select instances with this setting for termination during scale in events.| | `null` | `no`  |
-| service\_linked\_role\_arn | The ARN of the service-linked role that the ASG will use to call other AWS services |  | `null` | `no` |
-| max\_instance\_lifetime | The maximum amount of time, in seconds, that an instance can be in service, values must be either equal to 0 or between 604800 and 31536000 seconds. |  | `86400` | `no` |
+| protect\_from\_scale\_in | Allows setting instance protection. The Auto Scaling Group will not select instances with this setting for termination during scale in events.| `string` | `null` | `no`  |
+| service\_linked\_role\_arn | The ARN of the service-linked role that the ASG will use to call other AWS services | `string` | `null` | `no` |
+| max\_instance\_lifetime | The maximum amount of time, in seconds, that an instance can be in service, values must be either equal to 0 or between 604800 and 31536000 seconds. | `number` | `86400` | `no` |
 | instance\_refresh\_strategy | The strategy to use for instance refresh. The only allowed value is Rolling | `string` | `null` | `yes` |
 | instance\_refresh\_triggers | The strategy to use for instance refresh. The only allowed value is Rolling | `list(string)` | `null` | `no` |
 | pref\_min\_healthy\_percentage | The amount of capacity in the Auto Scaling group that must remain healthy during an instance refresh to allow the operation to continue, as a percentage of the desired capacity of the Auto Scaling group. | `number` | `90` | `no` |
 | pref\_instance\_warmup\_seconds | The number of seconds until a newly launched instance is configured and ready to use.  | `number` | `null` | `no` |
-| lb\_type | Type of load balancers [ classic or alb/nlb] | `string` |  | `yes` |
-| asa\_load\_balancer | The name of the ELB or  The ARN of an ALB Target Group. | `list(any)` |  |  |
 | create\_autoscaling\_lifecycle\_hook | whether to create lifecycle hook for the autoscaling group | `bool` | `false` | `yes` |
 | autoscaling\_lifecycle\_hook\_name | The name of the lifecycle hook. | `string` | `null` | `yes` |
-| autoscaling\_lifecycle\_hook\_default\_result | Defines the action the Auto Scaling group should take when the lifecycle hook timeout elapses or if an unexpected failure occurs. The value for this parameter can be either CONTINUE or ABANDON. The default value for this parameter is ABANDON. |  | `"ABANDON"` | `no` |
+| autoscaling\_lifecycle\_hook\_default\_result | Defines the action the Auto Scaling group should take when the lifecycle hook timeout elapses or if an unexpected failure occurs. The value for this parameter can be either CONTINUE or ABANDON. The default value for this parameter is ABANDON. | `string` | `"ABANDON"` | `no` |
 | autoscaling\_lifecycle\_hook\_heartbeat\_timeout | Defines the amount of time, in seconds, that can elapse before the lifecycle hook times out. When the lifecycle hook times out, Auto Scaling performs the action defined in the DefaultResult parameter| `number` | `10` | `no` |
 | autoscaling\_lifecycle\_hook\_lifecycle\_transition | The instance state to which you want to attach the lifecycle hook. For a list of lifecycle hook types.| `string` | `null` | `yes` |
 | autoscaling\_lifecycle\_hook\_notification\_metadata | Contains additional information that you want to include any time Auto Scaling sends a message to the notification target. | `string` | `null` | `no` |
@@ -126,7 +124,7 @@ module "asg" {
 | autoscaling\_schedule\_desired\_capacity | he number of EC2 instances that should be running in the group. Default 0. Set to -1 if you don't want to change the desired capacity at the scheduled time. | `number` | `null` | `no` |
 | autoscaling\_schedule\_start\_time | he time for this action to start, in \"YYYY-MM-DDThh:mm:ssZ\" format in UTC/GMT only (for example, 2014-06-01T00:00:00Z ). If you try to schedule your action in the past, Auto Scaling returns an error message. | `string` | `null` | `no` |
 | autoscaling\_schedule\_end\_time | The time for this action to end, in \"YYYY-MM-DDThh:mm:ssZ\" format in UTC/GMT only (for example, 2014-06-01T00:00:00Z ). If you try to schedule your action in the past, Auto Scaling returns an error message. | `string` | `null` | `no` |
-| autoscaling\_schedule\_recurrence | The time when recurring future actions will start. Start time is specified by the user following the Unix cron syntax format.|  | `null`| `no` |
+| autoscaling\_schedule\_recurrence | The time when recurring future actions will start. Start time is specified by the user following the Unix cron syntax format.| "string" | `null`| `no` |
 | create\_launch\_template | whether to create the launch template | `bool` | `true` | `yes` |
 | launch\_template\_name | The name of the launch template. If you leave this blank, Terraform will auto-generate a unique name | `string` | `null` | `no` |
 | launch\_template\_name\_prefix | Creates a unique name beginning with the specified prefix. Conflicts with name. | `string` | `null` | `no` |
