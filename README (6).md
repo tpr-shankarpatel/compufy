@@ -64,17 +64,16 @@ module "asg" {
 |------|-------------|------|---------|:-----:|
 | create\_autoscaling\_group | whether to create autoscaling group | `bool` | `false` | `yes` |
 | autoscaling\_group\_name | The name of the Auto Scaling Group. | `string` | `null` | `no`  |
-| autoscaling\_name\_prefix | Creates a unique name beginning with the specified prefix | `string` | `null` | `no` |
 | max\_instance\_size | The maximum size of the Auto Scaling Group. | `number` | `4` | `yes` |
 | min\_instance\_size | The minimum size of the Auto Scaling Group. | `number` | `1` | `yes` |
 | availability\_zones | A list of one or more availability zones for the group. | `list(any)` | `null` | `no` |
 | capacity\_rebalance | Indicates whether capacity rebalance is enabled. Otherwise, capacity rebalance is disabled. | `bool` | `false` | `no` |
 | default\_cooldown | The amount of time, in seconds, after a scaling activity completes before another scaling activity can start. | `number` | `null` | `no`  |
 | desired\_capacity | The number of Amazon EC2 instances that should be running in the group. | `number` | `null` | `no` |
-| use\_launch\_template | whether to use the launch template to create the ASG | `bool` | `true` | `yes` |
-| launch\_template | launch template id and version | `any` | `{}` | `no` |
 | use\_launch\_configuration | whether to use launch configuration to create the ASG | `bool` | `false` | `yes`  |
 |launch\_configuration\_name | Name of launch configuration | `string` | `null` | `no` |
+| use\_launch\_template | whether to use the launch template to create the ASG | `bool` | `true` | `yes` |
+| launch\_template | launch template id and version | `any` | `{}` | `no` |
 | health\_check\_grace\_period | Time (in seconds) after instance comes into service before checking health. | `number` | `300` | `no`  |
 | health\_check\_type | EC2 or ELB. Controls how health checking is done.| `string` | `null` | `no` |
 | force\_delete | Allows deleting the Auto Scaling Group without waiting for all instances in the pool to terminate. | `string` | `true` | `no`  |
@@ -91,11 +90,11 @@ module "asg" {
 | min\_elb\_capacity | Setting this causes Terraform to wait for this number of instances from this Auto Scaling Group to show up healthy in the ELB only on creation. Updates will not wait on ELB instance number changes. | `number` | `null` | `no` |
 | protect\_from\_scale\_in | Allows setting instance protection. The Auto Scaling Group will not select instances with this setting for termination during scale in events.| | `null` | `no`  |
 | service\_linked\_role\_arn | The ARN of the service-linked role that the ASG will use to call other AWS services |  | `null` | `no` |
+| max\_instance\_lifetime | The maximum amount of time, in seconds, that an instance can be in service, values must be either equal to 0 or between 604800 and 31536000 seconds. |  | `86400` | `no` |
 | instance\_refresh\_strategy | The strategy to use for instance refresh. The only allowed value is Rolling | `string` | `null` | `yes` |
 | instance\_refresh\_triggers | The strategy to use for instance refresh. The only allowed value is Rolling | `list(string)` | `null` | `no` |
 | pref\_min\_healthy\_percentage | The amount of capacity in the Auto Scaling group that must remain healthy during an instance refresh to allow the operation to continue, as a percentage of the desired capacity of the Auto Scaling group. | `number` | `90` | `no` |
 | pref\_instance\_warmup\_seconds | The number of seconds until a newly launched instance is configured and ready to use.  | `number` | `null` | `no` |
-| max\_instance\_lifetime | The maximum amount of time, in seconds, that an instance can be in service, values must be either equal to 0 or between 604800 and 31536000 seconds. |  | `86400` | `no` |
 | lb\_type | Type of load balancers [ classic or alb/nlb] | `string` |  | `yes` |
 | asa\_load\_balancer | The name of the ELB or  The ARN of an ALB Target Group. | `list(any)` |  |  |
 | create\_autoscaling\_lifecycle\_hook | whether to create lifecycle hook for the autoscaling group | `bool` | `false` | `yes` |
@@ -130,29 +129,32 @@ module "asg" {
 | autoscaling\_schedule\_recurrence | The time when recurring future actions will start. Start time is specified by the user following the Unix cron syntax format.|  | `null`| `no` |
 | create\_launch\_template | whether to create the launch template | `bool` | `true` | `yes` |
 | launch\_template\_name | The name of the launch template. If you leave this blank, Terraform will auto-generate a unique name | `string` | `null` | `no` |
-| block\_device\_mappings | Specify volumes to attach to the instance besides the volumes specified by the AMI | `any` | `null` | `no` |
 | launch\_template\_name\_prefix | Creates a unique name beginning with the specified prefix. Conflicts with name. | `string` | `null` | `no` |
 | launch\_template\_description | Description of the launch template. | `string` | `no` |
 | launch\_template\_default\_version| Default Version of the launch template.| `string` | `null` | `no` |
 | update\_default\_version | Whether to update Default Version each update. Conflicts with default_version. | `bool` | `true` | `no` |
+| ram\_disk\_id | The ID of the RAM disk. | `string` | `null` | `no` |
+| vpc\_security\_group\_ids | A list of security group IDs to associate with. | `list(string)` | `[]` | `no` |
+| disable\_api\_termination | If true, enables EC2 Instance Termination Protection | `bool` | `true` | `no` |
+| ebs\_optimized\_opts | If true, the launched EC2 instance will enable ebs_optimized variable. | `string` | `true` | `no` |
+| ebs\_optimized | If true, the launched EC2 instance will be EBS-optimized. | `string` | `false` | `no` |
+| ami\_image\_id| The AMI from which to launch the instance. | `string` | | `yes` |
+| instance\_initiated\_shutdown\_behavior | The market (purchasing) option for the instance. | `string` | `null` | `no` |
+| instance\_type| the type of the instance. | `string` | | `yes` |
+| key\_name | - The key name to use for the instance. | `string` | |  `yes` |
+| userdata\_cluster\_name | The Base64-encoded user data to provide when launching the instance. // Provide container name to assign autoscalling group instances. | `string` |  | `yes` |
+| additional\_commands | Add more commands in list format if you want to run when instance boots up | `list(string)` | `[]` | `no` |
+| block\_device\_mappings | Specify volumes to attach to the instance besides the volumes specified by the AMI | `any` | `null` | `no` |
 | capacity\_reservation\_preference | Targeting for EC2 capacity reservations. See Capacity Reservation Specification below for more details.| `string` | `null` | `no` |
 | cpu\_core\_count | The number of CPU cores for the instance. | `number` | `null` | `no` |
 | threads\_per\_core | he number of threads per CPU core. To disable Intel Hyper-Threading Technology for the instance, specify a value of 1. Otherwise, specify the default value of 2. | `number` | `null` | `no` |
 | cpu\_credits | The credit option for CPU usage. Can be \"standard\" or \"unlimited\". T3 instances are launched as unlimited by default. T2 instances are launched as standard by default.| `string` | `null` | `no` |
-| disable\_api\_termination | If true, enables EC2 Instance Termination Protection | `bool` | `true` | `no` |
-| ebs\_optimized\_opts | If true, the launched EC2 instance will enable ebs_optimized variable. | `string` | `true` | `no` |
-| ebs\_optimized | If true, the launched EC2 instance will be EBS-optimized. | `string` | `false` | `no` |
 | elastic\_gpu\_specifications\_type | The Elastic GPU Type | `string` | `null` | `no` |
 | elastic\_inference\_accelerator\_type | attach an Elastic Inference Accelerator to the instance. Additional information about Elastic Inference in EC2 can be found in the EC2 User Guide.| `string` | `null` | `no` |
 | iam\_instance\_profile\_name| The name of the instance profile. | `string` | | `no` |
 | iam\_instance\_arn | The Amazon Resource Name (ARN) of the instance profile.| `string` | | `no` |
-| ami\_image\_id| The AMI from which to launch the instance. | `string` | | `yes` |
-| instance\_initiated\_shutdown\_behavior | The market (purchasing) option for the instance. | `string` | `null` | `no` |
-| use\_market\_options | whether to use market options for our instance | `bool` | `false` | `no` |
-| instance\_market\_type | The market (purchasing) option for the instance.| `string` | `"SPOT"` | `no` |
-| instance\_type| the type of the instance. | `string` | | `yes` |
-| key\_name | - The key name to use for the instance. | `string` | |  `yes` |
 | license\_configuration\_arn | A list of license specifications to associate with. | `list(string)` | `null` | `no` |
+| instance\_market\_options | Targeting for EC2 capacity reservations. See Capacity Reservation Specification below for more details. | `any` | `[]` | `no` |
 | use\_instance\_metadata\_service | whether to customize instance metadata | `bool` | `false` | `no`  |
 | http\_endpoint | Whether the metadata service is available. Can be enabled or disabled.  | `string` | `"enabled"` | `no` |
 | http\_tokens | Whether or not the metadata service requires session tokens | `string` | `"optional"` | `no` |
@@ -167,13 +169,9 @@ module "asg" {
 | placement\_spread\_domain | Reserved for future use. | `string` | `null` | `no` |
 | placement\_tenancy | The tenancy of the instance (if the instance is running in a VPC). Can be default, dedicated, or host. | `string` | `"default"` | `no` |
 | placement\_partition\_number| The number of the partition the instance should launch in. Valid only if the placement group strategy is set to partition.| `string` | `null`| `no` |
-| ram\_disk\_id | The ID of the RAM disk. | `string` | `null` | `no` |
 | security\_group\_names | A list of security group names to associate with. If you are creating Instances in a VPC, use vpc_security_group_ids instead.| `list(string)` | `null` | `no` |
-| vpc\_security\_group\_ids | A list of security group IDs to associate with. | `list(string)` | `[]` | `no` |
 | tag\_specifications\_resource\_type | The type of resource to tag. Valid values are instance, volume, elastic-gpu and spot-instances-request.| `string` | `"instance"` | `no` |
 | tag\_specifications\_tags | A map of tags to assign to the resource. | `map(any)` | `{}` | `yes` |
-| userdata\_cluster\_name | The Base64-encoded user data to provide when launching the instance. // Provide container name to assign autoscalling group instances. | `string` |  | `yes` |
-| additional\_commands | Add more commands in list format if you want to run when instance boots up | `list(string)` | `[]` | `no` |
 | hibernation\_configured | If set to true, the launched EC2 instance will hibernation enabled.| `bool` | `false` | `no` |
 | enclave\_enabled| If set to true, Nitro Enclaves will be enabled on the instance.| `bool` | `false` | `no` |
 | hibernation\_configured\_opts |Use this option if required | `bool` | `false` | `no` |
