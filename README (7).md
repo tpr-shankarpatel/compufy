@@ -67,34 +67,35 @@ module "ecs" {
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:-----:|
-| aws\_ecs\_capacity\_provider | Wether you want to have ecs capacity provider resource. | `bool` | `true` | `yes` |
-| ecs\_capacity\_provider\_name | ecs capacity provider name. | `string` | `null` | `yes` |
-| ecs\_auto\_scalling\_grp\_arn | ARN of autoscalling group. | `string` | `null` | `yes` |
-| managed\_termination\_protection | Enables or disables container-aware termination of instances in the auto scaling group when scale-in happens. Valid values are ENABLED and DISABLED. | `string` | `"DISABLED"` | `no` |
-| managed\_scaling | parameters of the auto scaling:(max_scalling_step:The maximum step adjustment size),(min_scalling_step:The maximum step adjustment size),(status:Whether auto scaling is managed by ECS,Valid values are ENABLED and DISABLED),(target_capacity:The target utilization for the capacity provider. A number between 1 and 100.).|`list(any)`| `null` | `no` |
-| create\_cluster | Wether you want to have ecs cluster resource. | `bool` | `true` | `yes` |
-| ecs\_use\_fargate | If ecs use fargate or not. | `bool` | `false` | `yes` |
-| cluster\_name | The service name. | `string` |  | `yes` |
-| capacity\_providers | List of short names of one or more capacity providers to associate with the cluster. Valid values also include FARGATE and FARGATE_SPOT. | `list(any)` | `[]` | `no` |
-| ecs\_tags | Key-value map of resource tags. | `map(any)` | `{}` | `no` |
-| default\_capacity\_provider\_strategy | The capacity provider strategy to use by default for the cluster. Can be one or more. | `list(any)` | `null` | `no` |
-| insights\_setting | Configuration block(s) with cluster settings. For example, this can be used to enable CloudWatch Container Insights for a cluster. | `list(any)` | `null` | `no` | 
-| create\_ecs\_service| Wether you want to have ecs capacity provider resource. | `bool` | `true` | `yes` |
-| ecs\_service\_name | The service name. | `string` |  | `yes` |
-| existing\_cluster\_arn| if we need to give existing cluster ARN. | `string` | `null` | `no` |
-| ecs\_service\_type\_of\_deployment\_controller | Type of deployment controller. Valid values: CODE_DEPLOY, ECS, EXTERNAL. Default: ECS | `string` | `"ECS"`| `no` |
-| tasks\_desired\_count | The number of instances of the task definition to place and keep running. Defaults to 0. Do not specify if using the DAEMON scheduling strategy.|`number` | `0`| `no` |
-| tasks\_minimum\_healthy\_percent | Lower limit on the number of running tasks. | `number` | `0` | `no` |
-| tasks\_maximum\_percent | Upper limit on the number of running tasks. | `number` | `0` | `no` |
-| enable\_ecs\_managed\_tags | Specifies whether to enable Amazon ECS managed tags for the tasks within the service. | `bool` | `"true"` | `no` |
-| force\_new\_deployment | Enable to force a new task deployment of the service. This can be used to update tasks to use a newer Docker image with same image/tag combination. | `bool` | `true` | `no` |
-| health\_check\_grace\_period\_seconds | Seconds to ignore failing load balancer health checks on newly instantiated tasks to prevent premature shutdown, up to 2147483647. Only valid for services configured to use load balancers. | `number` | `null` | `no` |
-| iam\_role\_arn | ARN of the IAM role that allows Amazon ECS to make calls to your load balancer on your behalf. | `string` |  | `no`  |
-| platform\_version | The platform version on which to run your service. Only applicable for launch_type set to FARGATE. Defaults to LATEST. | `string` | `"LATEST"` |  `no` |
-| propagate\_tags | Specifies whether to propagate the tags from the task definition or the service to the tasks. The valid values are SERVICE and TASK_DEFINITION. | `string` | `null` | `no` |
-| scheduling\_strategy | The scheduling strategy to use for the service. The valid values are REPLICA and DAEMON. Defaults to REPLICA. Note that Tasks using the Fargate launch type or the CODE_DEPLOY or EXTERNAL deployment controller types don't support the DAEMON scheduling strategy. | `string` | `"REPLICA"` | `no`  |
-| wait\_for\_steady\_state | Terraform will wait for the service to reach a steady state (like aws ecs wait services-stable) before continuing. | `bool` | `false` | `no`  |
-| capacity\_provider\_strategy | The capacity provider strategy to use by default for the cluster. Can be one or more. | `list(any)` | `[]` | `no` |
+| create\_eks\_cluster | Hwther want to create eks cluster or not.| `bool` | `true` |  |
+| eks\_cluster\_name | Name of the cluster.| `string` | "tapestry" |  |
+| eks\_iam\_role\_arn | The Amazon Resource Name (ARN) of the IAM role that provides permissions for the Kubernetes control plane to make calls to AWS API operations on your behalf. | `string` | |  |
+| eks\_subnet\_ids | List of subnet IDs. Must be in at least two different availability zones. Amazon EKS creates cross-account elastic network interfaces in these subnets to allow communication between your worker nodes and the Kubernetes control plane.| `list(string)` | [] |  |
+| eks\_security\_group\_ids | List of security group IDs for the cross-account elastic network interfaces that Amazon EKS creates to use to allow communication between your worker nodes and the Kubernetes control plane.|`list(string)`| `null` |  |
+| eks\_public\_access\_cidrs| List of CIDR blocks. Indicates which CIDR blocks can access the Amazon EKS public API server endpoint when enabled. EKS defaults this to a list with 0.0.0.0/0.| `list(string)` | [] |  |
+| eks\_endpoint\_public\_access | Indicates whether or not the Amazon EKS public API server endpoint is enabled. Default is true.| `bool` | `true` |  |
+| eks\_endpoint\_private\_access | Indicates whether or not the Amazon EKS private API server endpoint is enabled | `bool` |`false` |  |
+| eks\_enabled\_cluster\_log\_types | A list of the desired control plane logging to enable.| `list(string)` | `null` |  |
+| eks\_encryption\_config| Configuration block with encryption configuration for the cluster. | `any` | [] |  |
+| eks\_kubernetes\_network\_config | Configuration block with kubernetes network configuration for the cluster. | `any` | [] | |
+| eks\_tags | Key-value map of resource tags. | `map(any)` | {} | | 
+| eks\_version| Desired Kubernetes master version. If you do not specify a value, the latest available version at resource creation is used and no upgrades will occur except those automatically triggered by EKS. | `string` | `null` | |
+| create\_eks\_fargate\_profile | Whther want to create eks_fargate_profile or not. | `bool` |`true'|  |
+| eks\_fargate\_profile\_name| Name of the EKS Fargate Profile. | `string` | `"tapestry"` | |
+| eks\_pod\_execution\_role\_arn| Amazon Resource Name (ARN) of the IAM Role that provides permissions for the EKS Fargate Profile.| `string` | `"arn:aws:iam::940154213284:role/EKScluster"`|  |
+| eks\_fargate\_profile\_subnet\_ids | dentifiers of private EC2 Subnets to associate with the EKS Fargate Profile. These subnets must have the following resource tag: kubernetes.io/cluster/CLUSTER_NAME (where CLUSTER_NAME is replaced with the name of the EKS Cluster).|`list(string)` | `["subnet-d62ae089", "subnet-2741c229"]`||
+| eks\_selector\_namespace | Kubernetes namespace for selection. | `string` | `"tapestry"` |  |
+| eks\_fargate\_profile\_name\_labels | Key-value map of Kubernetes labels for selection. | `map(any)` | {} | |
+| create\_eks\_node\_grp| Whther want to create eks_node_group or not.| `bool` | `true` |  |
+| eks\_node\_grp\_name | Name of the EKS Node Group.| `string` | `"tapestry"` | |
+| eks\_node\_role\_arn | Amazon Resource Name (ARN) of the IAM Role that provides permissions for the EKS Node Group. | `string` | `"arn:aws:iam::940154213284:role/EKScluster"
+` | |
+| eks\_node\_grp\_subnets\_id| Identifiers of EC2 Subnets to associate with the EKS Node Group. These subnets must have the following resource tag: kubernetes.io/cluster/CLUSTER_NAME (where CLUSTER_NAME is replaced with the name of the EKS Cluster). | `list(string)` |`["subnet-d62ae089", "subnet-2741c229"]`  |   |
+| eks\_node\_grp\_desired\_size | Desired number of worker nodes. | `number` | `2` | |
+| eks\_node\_grp\_max\_size| Maximum number of worker nodes. | `number` | `1` | |
+| eks\_node\_grp\_min\_size |Minimum number of worker nodes. | `number` | `1` |   |
+| eks\_node\_grp\_ami\_type | Type of Amazon Machine Image (AMI) associated with the EKS Node Group. Defaults to AL2_x86_64. Valid values: AL2_x86_64, AL2_x86_64_GPU, AL2_ARM_64 | `string` | `"AL2_x86_64"` |  |
+| eks\_node\_grp\_capacity\_type | The capacity provider strategy to use by default for the cluster. Can be one or more. | `list(any)` | `[]` | `no` |
 | ordered\_placement\_strategy | Service level strategy rules that are taken into consideration during task placement. List from top to bottom in order of precedence. Updates to this configuration will take effect next task deployment unless force_new_deployment is enabled. The maximum number of ordered_placement_strategy blocks is 5 | `list(any)` | `[]` | `no`  |
 | network\_configuration| The network configuration for the service. This parameter is required for task definitions that use the awsvpc network mode to receive their own Elastic Network Interface, and it is not supported for other network modes.| `list(any)`| `null` | `no` |
 | load\_balancer | List of load balancer target group objects containing the lb_target_group_arn, container_port and container_health_check_port. The container_port is the port on which the container will receive traffic. The container_health_check_port is an additional port on which the container can receive a health check. The lb_target_group_arn is either Application Load Balancer (ALB) or Network Load Balancer (NLB) target group ARN tasks will register with. | `list(any)` | `[]` | `no` |
