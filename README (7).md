@@ -102,8 +102,8 @@ module "ecs" {
 | eks\_node\_grp\_labels| Key-value map of Kubernetes labels. Only labels that are applied with the EKS API are managed by this argument. Other Kubernetes labels applied to the EKS Node Group will not be managed. | `map(any)` | `null` |  |
 | eks\_node\_grp\_release\_version| AMI version of the EKS Node Group. Defaults to latest version for Kubernetes version.| `string` | `null` |  |
 | eks\_node\_grp\_version | ubernetes version. Defaults to EKS Cluster Kubernetes version. Terraform will only perform drift detection if a configuration value is provided.| `string` | `null`|  |
-| create\_ecs\_task\_definition | Wether you want to have ecs task definition | `bool` | `true` | `yes` |
-| family\_name| A unique name for your task definition. | `string` |  | `yes`  |
+| eks\_ues\_launch\_template | Whether eks use launch template or not.  | `bool` | `false` |  |
+| eks\_launch\_template\_id| Identifier of the EC2 Launch Template. | `string` | "" |  |
 | container\_definitions\_json | A list of valid container definitions provided as a single valid JSON document. Please note that you should only provide values that are part of the container definition document. | `string` |  | `yes` |
 | task\_role\_arn|The AWS IAM role that will be provided to the task to perform AWS actions. | `string` |  | `no`  |
 | task\_network\_mode| The network mode to be used in the task definiton. Supported modes are awsvpc and bridge. | `string` | `"bridge"` | `no`  |
