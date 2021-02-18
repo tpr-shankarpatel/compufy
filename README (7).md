@@ -95,13 +95,13 @@ module "ecs" {
 | eks\_node\_grp\_max\_size| Maximum number of worker nodes. | `number` | `1` | |
 | eks\_node\_grp\_min\_size |Minimum number of worker nodes. | `number` | `1` |   |
 | eks\_node\_grp\_ami\_type | Type of Amazon Machine Image (AMI) associated with the EKS Node Group. Defaults to AL2_x86_64. Valid values: AL2_x86_64, AL2_x86_64_GPU, AL2_ARM_64 | `string` | `"AL2_x86_64"` |  |
-| eks\_node\_grp\_capacity\_type | The capacity provider strategy to use by default for the cluster. Can be one or more. | `list(any)` | `[]` | `no` |
-| ordered\_placement\_strategy | Service level strategy rules that are taken into consideration during task placement. List from top to bottom in order of precedence. Updates to this configuration will take effect next task deployment unless force_new_deployment is enabled. The maximum number of ordered_placement_strategy blocks is 5 | `list(any)` | `[]` | `no`  |
-| network\_configuration| The network configuration for the service. This parameter is required for task definitions that use the awsvpc network mode to receive their own Elastic Network Interface, and it is not supported for other network modes.| `list(any)`| `null` | `no` |
-| load\_balancer | List of load balancer target group objects containing the lb_target_group_arn, container_port and container_health_check_port. The container_port is the port on which the container will receive traffic. The container_health_check_port is an additional port on which the container can receive a health check. The lb_target_group_arn is either Application Load Balancer (ALB) or Network Load Balancer (NLB) target group ARN tasks will register with. | `list(any)` | `[]` | `no` |
-| lb\_type| Load balancer type possible values are Classic or alb or nlb. | `string` | `null` | `yes` |
-| target\_container\_name| "The name of the container to associate with the load balancer" | `string` | `"LATEST"` | `yes` |
-| service\_registries | List of service registry objects as per https://www.terraform.io/docs/providers/aws/r/ecs_service.html#service_registries-1. | `list(any)` | `[]`| `no` |
+| eks\_node\_grp\_capacity\_type | Type of capacity associated with the EKS Node Group. Valid values: ON_DEMAND, SPOT | `string` | `"ON_DEMAND"` |  |
+| eks\_node\_grp\_disk\_size | Disk size in GiB for worker nodes.  | `number` | `"20"` |   |
+| eks\_node\_grp\_force\_update\_version| Force version update if existing pods are unable to be drained due to a pod disruption budget issue.| `string`| `null` |  |
+| eks\_node\_grp\_instance\_types| List of instance types associated with the EKS Node Group.| `list(string)` | `["t3.medium"]` |  |
+| eks\_node\_grp\_labels| Key-value map of Kubernetes labels. Only labels that are applied with the EKS API are managed by this argument. Other Kubernetes labels applied to the EKS Node Group will not be managed. | `map(any)` | `null` |  |
+| eks\_node\_grp\_release\_version| AMI version of the EKS Node Group. Defaults to latest version for Kubernetes version.| `string` | `null` |  |
+| eks\_node\_grp\_version | ubernetes version. Defaults to EKS Cluster Kubernetes version. Terraform will only perform drift detection if a configuration value is provided.| `string` | `null`|  |
 | create\_ecs\_task\_definition | Wether you want to have ecs task definition | `bool` | `true` | `yes` |
 | family\_name| A unique name for your task definition. | `string` |  | `yes`  |
 | container\_definitions\_json | A list of valid container definitions provided as a single valid JSON document. Please note that you should only provide values that are part of the container definition document. | `string` |  | `yes` |
