@@ -104,20 +104,11 @@ module "ecs" {
 | eks\_node\_grp\_version | ubernetes version. Defaults to EKS Cluster Kubernetes version. Terraform will only perform drift detection if a configuration value is provided.| `string` | `null`|  |
 | eks\_ues\_launch\_template | Whether eks use launch template or not.  | `bool` | `false` |  |
 | eks\_launch\_template\_id| Identifier of the EC2 Launch Template. | `string` | "" |  |
-| container\_definitions\_json | A list of valid container definitions provided as a single valid JSON document. Please note that you should only provide values that are part of the container definition document. | `string` |  | `yes` |
-| task\_role\_arn|The AWS IAM role that will be provided to the task to perform AWS actions. | `string` |  | `no`  |
-| task\_network\_mode| The network mode to be used in the task definiton. Supported modes are awsvpc and bridge. | `string` | `"bridge"` | `no`  |
-| task\_cpu| CPU value for the task, required for FARGATE. | `string` | `null` | `no` |
-| task\_memory| Memory value for the task, required for FARGATE. | `string` | `null` | `no` |
-| service\_launch\_type| The launch type, can be EC2 or FARGATE. | `string` | `EC2` | `no` |
-| task\_execution\_role\_arn| The role arn used for task execution. Required for network mode awsvpc. | `string` | `null` | `no` |
-| ipc\_mode| The IPC resource namespace to use for the containers in the task. |  | `null` | `no` |
-| pid\_mode| The process namespace to use for the containers in the task |  | `null` | `no` |
-| volume| A list of volume definitions in JSON format that containers in your task may use. | `list(any)` | `[]` | `no` |
-| placement\_constraints\_task| A set of placement constraints rules that are taken into consideration during task placement. | `list(any)` | `[]` | `no`  |
-| proxy\_configuration|  The proxy configuration details for the App Mesh proxy. This is a list of maps, where each map should contain \"container_name\", \"properties\" and \"type\". | `list(any)` | `[]` | `no` |
-| inference\_accelerator| device_name:The Elastic Inference accelerator device name.The deviceName must also be referenced in a container definition as a ResourceRequirement.device_type:The Elastic Inference accelerator type to use. | `list(any)` | `[]` | `no` |
-| task\_definition\_tag| A map of tags to add to ECS task_deffination_tag. | `map(string)` | `{}` | `no`  |
+| eks\_launch\_template\_name | Name of the EC2 Launch Template.| `string` | "" |  |
+| eks\_launch\_template\_version|EC2 Launch Template version number. While the API accepts values like $Default and $Latest, the API will convert the value to the associated version number (e.g. 1) on read and Terraform will show a difference on next plan. Using the default_version or latest_version attribute of the aws_launch_template resource or data source is recommended for this argument. | `string` | `"$Latest"`  | |
+| eks\_enable\_worker\_remote\_access| Whether eks enable worker remote access or not. | `bool` | `false` |  |
+| eks\_worker\_ec2\_ssh\_key| EC2 Key Pair name that provides access for SSH communication with the worker nodes in the EKS Node Group.| `string` | "" |  |
+| eks\_worker\_source\_security\_grp| Set of EC2 Security Group IDs to allow SSH access (port 22) from on the worker nodes.  | `list(string)` | `null` |  |
 ## Outputs
 
 | Name | Description |
